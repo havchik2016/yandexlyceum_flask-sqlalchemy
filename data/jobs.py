@@ -12,12 +12,12 @@ class Jobs(SqlAlchemyBase, SerializerMixin):
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
     team_leader = sqlalchemy.Column(sqlalchemy.Integer,
-                                sqlalchemy.ForeignKey("users.id"))
+                                    sqlalchemy.ForeignKey("users.id"))
     job = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     work_size = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     collaborators = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     start_date = sqlalchemy.Column(sqlalchemy.String, default=datetime.datetime.now())
     end_date = sqlalchemy.Column(sqlalchemy.String,
-                                     nullable=True)
+                                 nullable=True)
     is_finished = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
     user = orm.relation('User')
