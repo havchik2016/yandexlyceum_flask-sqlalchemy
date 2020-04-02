@@ -1,11 +1,12 @@
 import datetime
 import sqlalchemy
 from sqlalchemy import orm
+from sqlalchemy_serializer import SerializerMixin
 
 from .db_session import SqlAlchemyBase
 
 
-class Jobs(SqlAlchemyBase):
+class Jobs(SqlAlchemyBase, SerializerMixin):
     __tablename__ = 'jobs'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
@@ -16,7 +17,7 @@ class Jobs(SqlAlchemyBase):
     work_size = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     collaborators = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     start_date = sqlalchemy.Column(sqlalchemy.String, default=datetime.datetime.now())
-    end_date = sqlalchemy.Column(sqlalchemy.DateTime,
+    end_date = sqlalchemy.Column(sqlalchemy.String,
                                      nullable=True)
     is_finished = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
     user = orm.relation('User')

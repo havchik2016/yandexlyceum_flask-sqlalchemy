@@ -1,7 +1,7 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, make_response, jsonify
 from flask_wtf import FlaskForm
 from flask_login import LoginManager, login_user, login_required, logout_user
-from data import db_session, jobs, users
+from data import db_session, jobs, users, jobs_api
 from wtforms.fields.html5 import EmailField
 from wtforms import PasswordField, StringField, SubmitField, IntegerField, BooleanField
 from wtforms.validators import DataRequired
@@ -126,8 +126,16 @@ def add_job():
     return render_template('add_job.html', title='Добавить работу', form=form)
 
 
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+
 def main():
     db_session.global_init("db/mars.sqlite")
+    app.register_blueprint(jobs_api.blueprint)
+    session = db_session.create_session()
+    print(session.query(jobs.Jobs.id).all())
     app.run()
 
 
