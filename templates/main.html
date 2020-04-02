@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 style="text-align: center">Works log</h2>
+    {% if tasks|length > 0 %}
+        {% for task in tasks %}
+            <h3>Action #{{ loop.index }}</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Title of activity</th>
+                    <th>Team leader</th>
+                    <th>Duration</th>
+                    <th>List of collaborators</th>
+                    <th>Is finished</th>
+                </tr>
+                <tr>
+                    <td>{{ task.job }}</td>
+                    <td>{{ leaders[loop.index0][0].surname }} {{ leaders[loop.index0][0].name }}</td>
+                    <td>{{ task.work_size }} hours</td>
+                    <td>{{ task.collaborators }}</td>
+                    <td>{{ task.is_finished }}</td>
+                </tr>
+            </table>
+        {% endfor %}
+    {% else %}
+        <h3>No tasks yet. Create some!</h3>
+    {% endif %}
+{% endblock %}

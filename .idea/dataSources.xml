@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="blogs" uuid="c12ccac7-fdd2-4769-bba4-ea91f1ece02e">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\PycharmProjects\sqlalchemy\db\blogs.sqlite</jdbc-url>
+    </data-source>
+  </component>
+</project>
