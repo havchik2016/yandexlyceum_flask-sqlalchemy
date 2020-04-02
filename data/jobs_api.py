@@ -59,3 +59,14 @@ def create_job():
         session.commit()
         return jsonify({'success': 'OK'})
     return jsonify({'error': 'Id already exists'})
+
+
+@blueprint.route('/api/jobs/<int:job_id>', methods=['DELETE'])
+def delete_job(job_id):
+    session = db_session.create_session()
+    news = session.query(jobs.Jobs).get(job_id)
+    if not news:
+        return jsonify({'error': 'Not found'})
+    session.delete(news)
+    session.commit()
+    return jsonify({'success': 'OK'})

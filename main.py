@@ -1,7 +1,8 @@
 from flask import Flask, render_template, redirect, make_response, jsonify
 from flask_wtf import FlaskForm
 from flask_login import LoginManager, login_user, login_required, logout_user
-from data import db_session, jobs, users, jobs_api
+from flask_restful import Api
+from data import db_session, jobs, users, jobs_api, users_resource
 from wtforms.fields.html5 import EmailField
 from wtforms import PasswordField, StringField, SubmitField, IntegerField, BooleanField
 from wtforms.validators import DataRequired
@@ -10,6 +11,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+api = Api(app)
 
 
 class LoginForm(FlaskForm):
@@ -134,8 +137,8 @@ def not_found(error):
 def main():
     db_session.global_init("db/mars.sqlite")
     app.register_blueprint(jobs_api.blueprint)
-    session = db_session.create_session()
-    print(session.query(jobs.Jobs.id).all())
+    api.add_resource(users_resource.UserListResource, '/api/v2/users')
+    api.add_resource(users_resource.UserResource, '/api/v2/users/<int:user_id>')
     app.run()
 
 
